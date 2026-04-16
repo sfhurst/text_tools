@@ -278,6 +278,9 @@ const shortcuts = {
 
   nstm: "NSTM",
   NSTM: "NSTM",
+
+  snbi: "SNBI",
+  SNBI: "SNBI",
 };
 
 // --- Predictive Text ---
