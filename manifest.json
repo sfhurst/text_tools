@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Bridge Inspection Text Tools",
+  "version": "1.0",
+  "description": "Inline phrase prediction and shortcut expansion using semicolon acceptance. Use ;;; to toggle the extension on or off.",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["wordLists.js", "mainEngine.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
