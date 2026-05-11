@@ -68,6 +68,11 @@ function setCaretRange(el, start, end) {
 //  INTELLIGENT CAPITALIZATION (live engines)
 // ============================================================
 function intelligentCapitalize(typedKey, phrase, textBefore) {
+  // ⭐ Preserve ALL-CAPS acronyms
+  if (phrase === phrase.toUpperCase()) {
+    return phrase;
+  }
+
   const phraseIsProper =
     phrase[0] === phrase[0].toUpperCase() &&
     phrase.slice(1) !== phrase.slice(1).toUpperCase();
@@ -75,7 +80,6 @@ function intelligentCapitalize(typedKey, phrase, textBefore) {
 
   const firstTypedUpper = typedKey[0] === typedKey[0].toUpperCase();
 
-  // ⭐ DO NOT trim away newlines
   const trimmed = textBefore.replace(/[ \t]+$/g, "");
 
   const endsSentence =
@@ -83,7 +87,8 @@ function intelligentCapitalize(typedKey, phrase, textBefore) {
     trimmed.endsWith("?") ||
     trimmed.endsWith("!") ||
     trimmed.endsWith("\n") ||
-    trimmed.length === 0;
+    trimmed.length === 0 ||
+    typedKey === "Enter";
 
   if (firstTypedUpper || endsSentence) {
     return phrase[0].toUpperCase() + phrase.slice(1).toLowerCase();
@@ -125,6 +130,8 @@ function replaceShortcut(el) {
     el.innerText = newText;
     setCaretRange(el, newText.length, newText.length);
   }
+
+  el.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
 // ============================================================
